@@ -25,8 +25,11 @@ print("\n\nDeveloped By :")
 print(pyfiglet.figlet_format("mOdEL^", font = "slant" ))
 
 unsaved_Contacts=[]
+error_contacts=[]
 
-path_excel_file="c:/your/path/to/numbers.xlsx"
+retry=0
+
+path_excel_file="numbers.xlsx"
 wb = openpyxl.load_workbook(path_excel_file)
 sheet = wb['Sheet1']
 col = sheet['A']
@@ -92,13 +95,13 @@ def send_attachment():
     whatsapp_send_button.click()
             
 try:
-    driver = webdriver.Chrome("c:/your/path/to/chromedriver.exe")
+    driver = webdriver.Chrome("chromedriver.exe")
 
     def send_unsaved_contact_message():
         message = input('Enter your message : ')
-        # message = "" #HardCode it here.
+        # message = "mOdEL^" #HardCode it here.
         try:
-            time.sleep(5)
+            time.sleep(8)
             input_box = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[2]/div/div[2]')
             for ch in message:
                 if ch == "\n":
@@ -106,28 +109,53 @@ try:
                 else:
                     input_box.send_keys(ch)
             input_box.send_keys(Keys.ENTER)
+            time.sleep(5)
+            driver.find_element_by_class_name("web").send_keys(Keys.ENTER)
             print("Message sent successfuly")
+            return True
         except NoSuchElementException:
             print("Failed to send message no Element.")
-            return
+            return False
+
 
     for i in unsaved_Contacts:
-            link = "https://web.whatsapp.com/send?phone={}&text&source&data&app_absent".format(i)
-            driver.get(link)
-            print("Sending message to", i)
-            send_unsaved_contact_message()
-            time.sleep(2)
-            if(choice == "yes"):
-                try:
-                    send_attachment()
-                except:
-                    print('Attachment not sent.')
-            if(docChoice == "yes"):
-                try:
-                    send_files()
-                except:
-                    print('Files not sent')
-                    time.sleep(5)
-            time.sleep(2)
+        
+        link = "https://web.whatsapp.com/send?phone={}&text&source&data&app_absent".format(i)
+        driver.get(link)
+        print("Sending message to", i)
+        time.sleep(3)
+        tt=send_unsaved_contact_message()
+        if(tt):
+            continue
+        else:
+            while(True):
+                retry +=1
+                print("Retry Attempt : "+str(retry))
+                link = "https://web.whatsapp.com/send?phone={}&text&source&data&app_absent".format(i)
+                driver.get(link)
+                print("Sending message to", i)
+                ttr=send_unsaved_contact_message()
+                if (ttr):
+                    time.sleep(3)
+                    break
+                elif(retry == 3):
+                    retry=0
+                    error_contacts.append(i)
+                    break
+        time.sleep(3)
+        if(choice == "yes"):
+            try:
+                send_attachment()
+            except:
+                print('Attachment not sent.')
+        if(docChoice == "yes"):
+            try:
+                send_files()
+            except:
+                print('Files not sent')
+                time.sleep(3)
+        print("Error Contacts List : ",error_contacts)
+        time.sleep(2)
+
 except Exception as e:
     print(e)
