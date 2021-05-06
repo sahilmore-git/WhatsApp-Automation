@@ -15,6 +15,7 @@ INSTALLING AUTOIT :
 
 Run Command "pip install -U pyautoit"
 
-CHROME DRIVER:
+CHROME DRIVER :
+
 Version of your chrome and chromedriver should be same. You can download it from here. 
 (https://sites.google.com/a/chromium.org/chromedriver/)
