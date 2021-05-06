@@ -1,4 +1,4 @@
-PyAutoIt==0.4
 selenium==3.13.0
 pyfiglet==0.8.post1	
 openpyxl==3.0.3
+PyAutoIt==0.4
