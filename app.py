@@ -40,7 +40,7 @@ print(unsaved_Contacts)
 choice = input("Would you like to send attachment(yes/no): ")
 if(choice == "yes"):
         # Note the media files should be present in the Media Folder
-    medianame = input("Enter the Media file name you want to send: ")
+    medianame = input("Enter the Media file name you want to send with extensions: ")
 docChoice = input("Would you file to send a Document file(yes/no): ")
 
 if(docChoice == "yes"):
@@ -94,12 +94,10 @@ try:
 
     def send_unsaved_contact_message():
         
-        #message = input('Enter your message : ')
-        message = "hi" 
+        message = input('Enter your message : ')
+        # message = "" #Hardcode here 
         try:
             time.sleep(8)
-            #//*[@id="main"]/footer/div[1]/div[2]/div/div[2]
-            
             input_box = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[2]/div/div[1]/div/div[2]')
             
             for ch in message:
@@ -141,20 +139,20 @@ try:
                     retry=0
                     error_contacts.append(i)
                     break
-        time.sleep(3)
-        if(choice == "yes"):
-            try:
-                send_attachment()
-            except:
-                print('Attachment not sent.')
-        if(docChoice == "yes"):
-            try:
-                send_files()
-            except:
-                print('Files not sent')
                 time.sleep(3)
-        print("Error Contacts List : ",error_contacts)
-        time.sleep(2)
+                if(choice == "yes"):
+                    try:
+                        send_attachment()
+                    except:
+                        print('Attachment not sent.')
+                if(docChoice == "yes"):
+                    try:
+                        send_files()
+                    except:
+                        print('Files not sent')
+                        time.sleep(3)
+                print("Error Contacts List : ",error_contacts)
+                time.sleep(4)
 
 except Exception as e:
     print(e)
