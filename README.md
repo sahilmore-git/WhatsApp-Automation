@@ -12,10 +12,9 @@ STEPS :
 3) Run the Script "python app.py". 
 
 INSTALLING AUTOIT :
-
-Run Command "pip install -U pyautoit"
+1) Run Command "pip install -U pyautoit"
+2) Run Command "python setup.py install"
 
 CHROME DRIVER :
-
 Version of your chrome and chromedriver should be same. You can download it from here. 
 (https://sites.google.com/a/chromium.org/chromedriver/)

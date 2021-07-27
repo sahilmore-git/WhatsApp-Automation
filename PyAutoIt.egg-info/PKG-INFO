@@ -1,0 +1,55 @@
+Metadata-Version: 1.1
+Name: PyAutoIt
+Version: 0.6.4
+Summary: Python binding for AutoItX3.dll
+Home-page: https://github.com/jacexh/pyautoit
+Author: Jace Xu
+Author-email: jace.xh@gmail.com
+License: MIT
+Description: PyAutoIt
+        ========
+        
+        Python binding for AutoItX3.dll
+        
+        Installing
+        ~~~~~~~~~~
+        
+        If you have pip on your system, you can simply install or upgrade
+        PyAutoIt:
+        
+        .. code:: python
+        
+            pip install -U pyautoit
+        
+        Alternately, you can download the source distribution from PyPI,
+        unarchive it, and run:
+        
+        .. code:: python
+        
+            python setup.py install
+        
+        Example
+        ~~~~~~~
+        
+        -  open notepad
+        -  type some string into notepad, eg: "hello world"
+        -  close notepad without saving
+        
+        .. code:: python
+        
+            import autoit
+        
+            autoit.run("notepad.exe")
+            autoit.win_wait_active("[CLASS:Notepad]", 3)
+            autoit.control_send("[CLASS:Notepad]", "Edit1", "hello world{!}")
+            autoit.win_close("[CLASS:Notepad]")
+            autoit.control_click("[Class:#32770]", "Button2")
+        
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Win32 (MS Windows)
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development :: Testing

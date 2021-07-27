@@ -6,10 +6,7 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.chrome.options import Options
-try:
-    import autoit
-except ModuleNotFoundError:
-    pass
+import autoit
 import time
 import datetime
 import os
@@ -77,32 +74,34 @@ def send_files():
 def send_attachment():
     global medianame
     # Attachment Drop Down Menu
-    clipButton = driver.find_element_by_xpath('//*[@id="main"]/header/div[3]/div/div[2]/div/span')
+    clipButton = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[1]/div[2]/div/div/span')
     clipButton.click()
     time.sleep(3)
-
     # To send Videos and Images.
-    mediaButton = driver.find_element_by_xpath('//*[@id="main"]/header/div[3]/div/div[2]/span/div/div/ul/li[1]/button')
+    mediaButton = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[1]/div[2]/div/span/div[1]/div/ul/li[1]/button')
     mediaButton.click()
     time.sleep(3)
     image_path = os.getcwd() + "\\Media\\" + medianame
     autoit.control_focus("Open", "Edit1")
     autoit.control_set_text("Open", "Edit1", image_path)
     autoit.control_click("Open", "Button1")
-
-    time.sleep(3)  
-    whatsapp_send_button = driver.find_element_by_xpath('//*[@id="app"]/div/div/div[2]/div[2]/span/div/span/div/div/div[2]/span/div/div/span')
+    time.sleep(3)
+    whatsapp_send_button = driver.find_element_by_xpath('//*[@id="app"]/div[1]/div[1]/div[2]/div[2]/span/div[1]/span/div[1]/div/div[2]/span/div/div/span')
     whatsapp_send_button.click()
             
 try:
     driver = webdriver.Chrome("chromedriver.exe")
 
     def send_unsaved_contact_message():
-        message = input('Enter your message : ')
-        # message = "mOdEL^" #HardCode it here.
+        
+        #message = input('Enter your message : ')
+        message = "hi" 
         try:
             time.sleep(8)
-            input_box = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[2]/div/div[2]')
+            #//*[@id="main"]/footer/div[1]/div[2]/div/div[2]
+            
+            input_box = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[2]/div/div[1]/div/div[2]')
+            
             for ch in message:
                 if ch == "\n":
                     ActionChains(driver).key_down(Keys.SHIFT).key_down(Keys.ENTER).key_up(Keys.ENTER).key_up(Keys.SHIFT).key_up(Keys.BACKSPACE).perform()
